@@ -1,0 +1,52 @@
+#include <iostream>
+#include <iomanip>
+#include <iostream>
+#include <sstream>
+#include <fstream>
+using namespace std;
+
+
+
+int main() {
+
+	char ch;
+	fstream file("rewind.text", ios::out);
+
+	if (!file)
+	{
+		cout << "Error in trying to create file" << endl;
+		return 0;
+	}
+
+	file << "Al good dogs " << endl
+	<< "growl, bark, and eat." << endl;
+
+	file.close();
+
+	file.open("rewind.txt", ios::in);
+	if (!file)
+	{
+		cout << "Error in trying to open file";
+		return 0;
+	}
+
+	file.get(ch);
+	while (!file.fail())
+	{
+		cout.put(ch);
+		file.get(ch);
+	}
+
+	file.clear();
+	file.seekg(0, ios::beg);
+
+	file.get(ch);
+	while (!file.fail())
+	{
+		cout.put(ch);
+		file.get(ch);
+	}
+	system("pause");
+	return 0;
+}
+
